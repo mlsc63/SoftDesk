@@ -7,6 +7,8 @@ from issue.views import IssueViewSet
 from comment.views import CommentViewSet
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+import debug_toolbar
 
 
 router = DefaultRouter()
@@ -28,10 +30,14 @@ issue_router.register(r'comment', CommentViewSet, basename='comment')
 
 
 urlpatterns = [
+
     path('', include(router.urls)),
     path('', include(project_router.urls)),
     path('', include(issue_router.urls)),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('__debug__/', include(debug_toolbar.urls)),
 
 ]
