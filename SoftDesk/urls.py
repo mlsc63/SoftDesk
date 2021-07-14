@@ -7,7 +7,7 @@ from issue.views import IssueViewSet
 from comment.views import CommentViewSet
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
-from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 import debug_toolbar
 
 
