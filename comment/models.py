@@ -8,3 +8,6 @@ class Comments(models.Model):
     author_comment = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='author_comment')
     issue_id = models.ForeignKey(to=Issues, on_delete=models.CASCADE, related_name="comment")
     created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.comment_id) + ' ' + str(self.description)

@@ -13,4 +13,4 @@ class Projects(models.Model):
                                        related_name="project")
 
     def __str__(self):
-        return 'Class Projects: ' + self.title + self.description + self.type + str(self.author_project)
+        return self.title
