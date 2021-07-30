@@ -10,8 +10,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
 
-    # Personnalisation du queryset on récupére le project_id dans le parametre Kwargs puis on lance la recherche.
-    # Il est possible de se passer de cette fonction dans ce cas.
+
+    def perform_create(self, serializer):
+        print('Create')
+        serializer.save(author_project=self.request.user)
 
     def get_queryset(self, *args, **kwargs):
         if self.kwargs.get('project_id'):
@@ -20,10 +22,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
         else:
             return Projects.objects.all()
 
-
-    def perform_create(self, serializer):
-        print('Create')
-        serializer.save(author_project=self.request.user)
 
 
 

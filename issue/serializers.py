@@ -7,8 +7,8 @@ class IssueSerializer(serializers.ModelSerializer):
     comment = serializers.HyperlinkedRelatedField(many=True, view_name='comments-detail', read_only=True)
     project = serializers.ReadOnlyField(source='project_id')
 
-
     def create(self, validated_data):
+        print(str(validated_data))
         issue = Issues.objects.create(**validated_data)
         issue.save()
         return issue
