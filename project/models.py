@@ -5,7 +5,6 @@ from django.conf import settings
 class Projects(models.Model):
     choice = [('BACK_END', 'BACK_END'), ('FRONT_END', 'FRONT_END'), ('IOS', 'IOS'), ('ANDROID', 'ANDROID')]
 
-    project_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=500, blank=True)
     type = models.CharField(max_length=10, choices=choice)

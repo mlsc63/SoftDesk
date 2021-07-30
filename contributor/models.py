@@ -6,9 +6,8 @@ from project.models import Projects
 class Contributor(models.Model):
     choice_permission = [('CREATE', 'CREATE'), ('READ', 'READ'), ('UPDATE', 'UPDATE'), ('DELETE', 'DELETE')]
 
-    contributor_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='user_project')
-    project_id_contributor = models.ForeignKey(to=Projects, on_delete=models.CASCADE, related_name='projects_contributor')
+    project = models.ForeignKey(to=Projects, on_delete=models.CASCADE, related_name='projects_contributor')
     permission = models.CharField(max_length=10, choices=choice_permission, default='READ')
     role = models.CharField(max_length=128)
 

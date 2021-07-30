@@ -1,10 +1,9 @@
-from rest_framework import permissions
+
 from rest_framework import viewsets
 from .serializers import CommentSerializer
 from .models import Comments
 from project.models import Projects
 from issue.models import Issues
-from rest_framework.exceptions import NotFound
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -16,48 +15,64 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
 
-
-    def perform_create(self, serializer):
-
-        try:
-            query_project = Projects.objects.get(project_id=self.kwargs.get('project_pk'))
-            query_issue = Issues.objects.get(project=query_project)
-            serializer.save(author_comment=self.request.user)
-            serializer.save(issue_id=query_issue.issue_id)
-
-        except:
-            raise NotFound("Not Found")
-
     def get_queryset(self, *args, **kwargs):
         query_project = self.kwargs.get('project_pk')
         query_issue = self.kwargs.get('issue_pk')
         query_comment = self.kwargs.get('pk')
 
-        if query_issue and query_comment and query_project:
+        if query_project and query_issue and query_comment:
             try:
-                project = Projects.objects.get(project_id=query_project)
-                issue = Issues.objects.get(project=project.project_id)
-                if str(issue.issue_id) == str(query_issue):
-                    comment = Comments.objects.filter(issue=issue.issue_id)
-                    comment.filter(comment_id=query_comment)
-                    return comment
-                else:
-                    raise NotFound("Not found1")
+                project = Projects.objects.get(pk=query_project)
+                issues = Issues.objects.filter(project=project.id)
+                issue = issues.get(pk=query_issue)
+                comments = Comments.objects.filter(issue=issue.id)
+                comment = comments.filter(pk=query_comment)
+                return comment
             except:
-                raise NotFound("Not found2")
-
-        elif query_issue and query_project:
+                pass
+        elif query_project and query_issue:
             try:
-                project = Projects.objects.get(project _id=query_project)
-                issue = Issues.objects.get(project=project.project_id)
-                comment = Comments.objects.filter(issue=issue)
-                if str(issue.issue_id) == str(query_issue):
-                    return comment
-                else:
-                    raise NotFound("Not found3")
-            except:
-                raise NotFound("Not found4")
 
+                project = Projects.objects.get(pk=query_project)
+                issues = Issues.objects.filter(project=project.id)
+                issue = issues.get(pk=query_issue)
+                comments = Comments.objects.filter(issue=issue.id)
+                return comments
+            except:
+                pass
+
+        else:
+            pass
+
+    def perform_create(self, serializer):
+        query_project = self.kwargs.get('project_pk')
+        query_issue = self.kwargs.get('issue_pk')
+        if query_project and query_issue:
+            try:
+                project = Projects.objects.get(pk=query_project)
+                issues = Issues.objects.filter(project=project.id)
+                issue = issues.get(pk=query_issue)
+                serializer.save(issue=issue)
+                serializer.save(author_comment=self.request.user)
+            except:
+                pass
+        else:
+            pass
+
+    def perform_update(self, serializer):
+        query_project = self.kwargs.get('project_pk')
+        query_issue = self.kwargs.get('issue_pk')
+        if query_project and query_issue:
+            try:
+                project = Projects.objects.get(pk=query_project)
+                issues = Issues.objects.filter(project=project.id)
+                issue = issues.get(pk=query_issue)
+                serializer.update(issue=issue)
+                serializer.update(author_comment=self.request.user)
+            except:
+                pass
+        else:
+            pass
 
 
 
