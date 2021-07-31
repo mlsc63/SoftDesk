@@ -42,18 +42,9 @@ class ContributorViewSet(viewsets.ModelViewSet):
             pass
 
 
-    def perform_update(self, serializer):
-        query_project = self.kwargs.get('project_pk')
-        if query_project:
-
-                project = Projects.objects.get(pk=query_project)
-                users = Contributor.objects.filter(project=project.id)
-                print(str(users))
-                user = users.get(id=query_project)
-                print(str(user))
 
 
-                serializer.save(id=user.id)
+
 
 
 

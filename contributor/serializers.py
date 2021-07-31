@@ -8,14 +8,11 @@ class ContributorSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
+        print('create')
         contributor = Contributor.objects.create(**validated_data)
         contributor.save()
         return contributor
 
-    def update(self, instance, validated_data):
-        contributor = Contributor.objects.update(**validated_data)
-        contributor.save()
-        return contributor
 
 
     class Meta:
