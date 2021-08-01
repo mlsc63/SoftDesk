@@ -2,12 +2,13 @@ from rest_framework import permissions
 
 
 class ProjectPermission(permissions.BasePermission):
-    # READ
+
     def has_permission(self, request, view):
         return True
 
     def has_object_permission(self, request, view, obj):
-        return obj.author_project == request.user
+
+        return request.method in ["DELETE"]
 
 
 
