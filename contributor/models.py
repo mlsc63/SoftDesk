@@ -4,7 +4,7 @@ from project.models import Projects
 
 
 class Contributor(models.Model):
-    choice_permission = [('CREATE', 'CREATE'), ('READ', 'READ'), ('UPDATE', 'UPDATE'), ('DELETE', 'DELETE')]
+    choice_permission = [('CREATE', 'CREATE'), ('READ', 'READ'), ('UPDATE', 'UPDATE'), ('DELETE', 'DELETE'), ('ALL', 'ALL')]
 
     user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='user_project')
     project = models.ForeignKey(to=Projects, on_delete=models.CASCADE, related_name='projects_contributor')

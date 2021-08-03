@@ -4,6 +4,8 @@ from .serializers import CommentSerializer
 from .models import Comments
 from project.models import Projects
 from issue.models import Issues
+from .permission import CommentPermission
+from rest_framework import viewsets, permissions
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -12,6 +14,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     `update` and `destroy` actions.
     Additionally we also provide an extra `highlight` action.
     """
+    permission_classes = [permissions.IsAuthenticated & CommentPermission]
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
 

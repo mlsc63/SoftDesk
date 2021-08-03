@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from .serializers import IssueSerializer
 from .models import Issues
 from project.models import Projects
+from .permission import IssuePermission
 
 
 class IssueViewSet(viewsets.ModelViewSet):
@@ -14,7 +15,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
     queryset = Issues.objects.all()
     serializer_class = IssueSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated & IssuePermission]
 
     def get_queryset(self, *args, **kwargs):
         query_project = self.kwargs.get('project_pk')

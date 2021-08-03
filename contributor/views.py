@@ -2,9 +2,11 @@ from rest_framework import viewsets, permissions
 from .models import Contributor
 from .serializers import ContributorSerializer
 from project.models import Projects
+from .permission import UserPermission
 
 class ContributorViewSet(viewsets.ModelViewSet):
 
+    permission_classes = [permissions.IsAuthenticated & UserPermission]
     queryset = Contributor.objects.all()
     serializer_class = ContributorSerializer
 

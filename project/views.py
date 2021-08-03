@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions
 from .models import Projects
 from .serializers import ProjectSerializer
 from .permission import ProjectPermission
+from rest_framework.exceptions import NotFound
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -19,7 +20,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
                 project = Projects.objects.filter(id=query_project)
                 return project
             except:
-                pass
+                raise NotFound('N')
         else:
             project = Projects.objects.all()
             return project
