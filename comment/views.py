@@ -62,20 +62,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         else:
             pass
 
-    def perform_update(self, serializer):
-        query_project = self.kwargs.get('project_pk')
-        query_issue = self.kwargs.get('issue_pk')
-        if query_project and query_issue:
-            try:
-                project = Projects.objects.get(pk=query_project)
-                issues = Issues.objects.filter(project=project.id)
-                issue = issues.get(pk=query_issue)
-                serializer.update(issue=issue)
-                serializer.update(author_comment=self.request.user)
-            except:
-                pass
-        else:
-            pass
+
 
 
 

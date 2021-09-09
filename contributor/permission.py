@@ -8,7 +8,6 @@ class UserPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         query_project = view.kwargs.get('project_pk')
         project = Projects.objects.get(id=query_project)
-        print(query_project)
         try:
             if project.author_project == request.user:
                 return True

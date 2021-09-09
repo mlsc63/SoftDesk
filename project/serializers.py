@@ -18,3 +18,4 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Projects
         fields = ['id', 'url', 'title', 'description', 'type', 'author_project']
 
+

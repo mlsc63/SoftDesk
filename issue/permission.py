@@ -27,6 +27,7 @@ class IssuePermission(permissions.BasePermission):
         try:
             project = Projects.objects.get(id=query_project)
             if project.author_project == request.user:
+                print('ok')
                 return True
             elif Issues.objects.get(id=obj.id, author_issue=request.user):
                 return True

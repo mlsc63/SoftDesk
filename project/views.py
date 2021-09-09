@@ -11,21 +11,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Projects.objects.all()
     serializer_class = ProjectSerializer
 
-
-
-    def get_queryset(self, *args, **kwargs):
-        query_project = self.kwargs.get('pk')
-        if query_project:
-            try:
-                project = Projects.objects.filter(id=query_project)
-                return project
-            except:
-                raise NotFound('N')
-        else:
-            project = Projects.objects.all()
-            return project
-
-
     def perform_create(self, serializer):
         serializer.save(author_project=self.request.user)
 

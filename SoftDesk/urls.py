@@ -18,6 +18,7 @@ router.register(r'contributor', ContributorViewSet)
 router.register(r'user', UserViewSet)
 router.register(r'issue', IssueViewSet)
 router.register(r'comment', CommentViewSet)
+router.register(r'signup', UserViewSet)
 
 
 
@@ -36,7 +37,7 @@ urlpatterns = [
     path('', include(issue_router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api-auth/', include('rest_framework.urls')),
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('admin/', admin.site.urls),
     path('__debug__/', include(debug_toolbar.urls)),
 
