@@ -1,4 +1,3 @@
-
 from rest_framework import viewsets
 from .serializers import CommentSerializer
 from .models import Comments
