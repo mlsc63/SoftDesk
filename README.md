@@ -12,7 +12,7 @@ This locally-executable API can be installed and executed from [http://localhost
 For this method, it is necessary to have pipenv already installed on your python installation. If pipenv is not already installed on your computer, refer to [this page](docs/pipenv/installation-en.md).
 
 1. Clone this repository using `$ git clone https://github.com/mlsc63/SoftDesk.git`
-2. Move to the softdesk root folder with `$ cd softdesk`
+2. Move to the softdesk root folder with `$ cd SoftDesk`
 3. Install project dependencies with `pipenv install` 
 4. Create and populate project database with `pipenv run python manage.py create_db`
 5. Run the server with `pipenv run python manage.py runserver`
@@ -26,9 +26,12 @@ of the API, you only have to execute step 5 from the root folder of the project.
 ### Option 2: Installation and execution without pipenv (using venv and pip)
 
 1. Clone this repository using `$git clone https://github.com/mlsc63/SoftDesk.git`
-2. Move to the ocmovies-api root folder with `$ cd softdesk`
+2. Move to the ocmovies-api root folder with `$ cd SoftDesk`
 3. Create a virtual environment for the project with `$ py -m venv env` on windows or `$ python3 -m venv env` on macos or linux.
 4. Activate the virtual environment with `$ env\Scripts\activate` on windows or `$ source env/bin/activate` on macos or linux.
 5. Install project dependencies with `$ pip install -r requirements.txt`
 6. Create and populate the project database with `$ python manage.py create_db`
 7. Run the server with `$ python manage.py runserver`
+
+### Documentation Postman
+https://documenter.getpostman.com/view/14859712/U16jMkWz
