@@ -4,7 +4,7 @@ from .serializers import IssueSerializer
 from .models import Issues
 from project.models import Projects
 from .permission import IssuePermission
-
+from rest_framework.exceptions import NotFound
 
 class IssueViewSet(viewsets.ModelViewSet):
     """
@@ -27,14 +27,14 @@ class IssueViewSet(viewsets.ModelViewSet):
                 issue.filter(pk=query_issue)
                 return issue
             except:
-                pass
+                raise NotFound("Something went wrong")
         else:
             try:
                 project = Projects.objects.get(pk=query_project)
                 issue = Issues.objects.filter(project_id=project.id)
                 return issue
             except:
-                pass
+                raise NotFound("Something went wrong")
 
     def perform_create(self, serializer):
         try:
@@ -43,5 +43,5 @@ class IssueViewSet(viewsets.ModelViewSet):
             serializer.save(project=project)
             serializer.save(author_issue=self.request.user)
         except:
-            pass
+            raise NotFound("Something went wrong")
 

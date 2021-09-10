@@ -6,7 +6,6 @@ class CommentSerializer(serializers.ModelSerializer):
     author_comment = serializers.ReadOnlyField(source='author_comment.username')
     issue = serializers.ReadOnlyField(source='issue.id')
 
-
     def create(self, validated_data):
         print(validated_data)
         comment = Comments.objects.create(**validated_data)

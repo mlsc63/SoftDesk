@@ -3,14 +3,13 @@ from .models import Contributor
 from .serializers import ContributorSerializer
 from project.models import Projects
 from .permission import UserPermission
+from rest_framework.exceptions import NotFound
+
 
 class ContributorViewSet(viewsets.ModelViewSet):
-
     permission_classes = [permissions.IsAuthenticated & UserPermission]
     queryset = Contributor.objects.all()
     serializer_class = ContributorSerializer
-
-
 
     def get_queryset(self, *args, **kwargs):
         query_project = self.kwargs.get('project_pk')
@@ -25,37 +24,10 @@ class ContributorViewSet(viewsets.ModelViewSet):
                 project = Projects.objects.get(pk=query_project)
                 users = Contributor.objects.filter(project=project.id)
                 return users
-            else:
-                pass
         except:
-            pass
-
-
+            raise NotFound("Something went wrong")
 
     def perform_create(self, serializer):
-        query_project = self.kwargs.get('project_pk')
-        if query_project:
-            try:
-                project = Projects.objects.get(pk=query_project)
-                serializer.save(project=project)
-            except:
-                pass
-        else:
-            pass
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        project = Projects.objects.get(pk=self.kwargs.get('project_pk'))
+        serializer.save(project=project)

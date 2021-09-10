@@ -2,7 +2,7 @@ from rest_framework import permissions
 from contributor.models import Contributor
 from project.models import Projects
 from .models import Comments
-
+from rest_framework.exceptions import NotFound
 
 
 class CommentPermission(permissions.BasePermission):
@@ -22,7 +22,7 @@ class CommentPermission(permissions.BasePermission):
                 else:
                     pass
         except:
-            pass
+            raise NotFound("Something went wrong")
 
     def has_object_permission(self, request, view, obj):
         query_project = view.kwargs.get('project_pk')
@@ -37,4 +37,4 @@ class CommentPermission(permissions.BasePermission):
             else:
                 return False
         except:
-            pass
+            raise NotFound("Something went wrong")

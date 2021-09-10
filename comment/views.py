@@ -5,6 +5,7 @@ from project.models import Projects
 from issue.models import Issues
 from .permission import CommentPermission
 from rest_framework import viewsets, permissions
+from rest_framework.exceptions import NotFound
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -31,7 +32,7 @@ class CommentViewSet(viewsets.ModelViewSet):
                 comment = comments.filter(pk=query_comment)
                 return comment
             except:
-                pass
+                raise NotFound("Something went wrong")
         elif query_project and query_issue:
             try:
 
@@ -41,10 +42,10 @@ class CommentViewSet(viewsets.ModelViewSet):
                 comments = Comments.objects.filter(issue=issue.id)
                 return comments
             except:
-                pass
+                raise NotFound("Something went wrong")
 
         else:
-            pass
+            raise NotFound("Something went wrong")
 
     def perform_create(self, serializer):
         query_project = self.kwargs.get('project_pk')
@@ -57,9 +58,9 @@ class CommentViewSet(viewsets.ModelViewSet):
                 serializer.save(issue=issue)
                 serializer.save(author_comment=self.request.user)
             except:
-                pass
+                raise NotFound("Something went wrong")
         else:
-            pass
+            raise NotFound("Something went wrong")
 
 
 

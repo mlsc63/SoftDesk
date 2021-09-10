@@ -7,7 +7,6 @@ class ProjectPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         return True
 
-
     def has_object_permission(self, request, view, obj):
         query_project = view.kwargs.get("pk")
         try:

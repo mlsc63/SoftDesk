@@ -2,6 +2,8 @@ from rest_framework import permissions
 from contributor.models import Contributor
 from project.models import Projects
 from .models import Issues
+from rest_framework.exceptions import NotFound
+
 
 class IssuePermission(permissions.BasePermission):
 
@@ -18,9 +20,9 @@ class IssuePermission(permissions.BasePermission):
                 elif contributor.permission == 'READ':
                     return request.method in ["GET"]
                 else:
-                    pass
+                    raise NotFound("Something went wrong")
         except:
-            pass
+            raise NotFound("Something went wrong")
 
     def has_object_permission(self, request, view, obj):
         query_project = view.kwargs.get('project_pk')
@@ -36,10 +38,4 @@ class IssuePermission(permissions.BasePermission):
             else:
                 return False
         except:
-            pass
-
-
-
-
-
-
+            raise NotFound("Something went wrong")

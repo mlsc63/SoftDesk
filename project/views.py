@@ -2,7 +2,6 @@ from rest_framework import viewsets, permissions
 from .models import Projects
 from .serializers import ProjectSerializer
 from .permission import ProjectPermission
-from rest_framework.exceptions import NotFound
 
 
 class ProjectViewSet(viewsets.ModelViewSet):

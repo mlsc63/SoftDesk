@@ -16,7 +16,7 @@ class UserPermission(permissions.BasePermission):
             else:
                 return False
         except:
-           return False
+            return False
 
     def has_object_permission(self, request, view, obj):
         return True
